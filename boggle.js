@@ -89,13 +89,24 @@ const searchLetterAround = (letter, location, matrix) => {
 const solveResult = [];
 
 const solveLetterAround = (initLocation, letter, word, matrix) => {
-  if (word.length === 0) return;
-
   const lettersAround = searchLetterAround(word.charAt(0), initLocation, matrix);
+
+  let result = false;
   for (let i = 0; i < lettersAround.length; i += 1) {
     solveResult.push(lettersAround[i]);
-    solveLetterAround(lettersAround[i], word.charAt(1), word.substring(1), matrix);
+    result = true;
+
+    if (word.length === 1) {
+      return result;
+    }
+    const isSolved = solveLetterAround(lettersAround[i], word.charAt(1), word.substring(1), matrix);
+    if (!isSolved) {
+      solveResult.pop();
+      result = false;
+    }
   }
+
+  return result;
 };
 
 const solveWord = (word, matrix) => {
@@ -118,5 +129,5 @@ console.log(matrix);
 
 // console.log(firstLetterLocation('N', matrix));
 
-solveWord('SUPER', matrix);
+solveWord('TURN', matrix);
 console.log(solveResult);
