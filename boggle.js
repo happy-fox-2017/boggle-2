@@ -31,7 +31,7 @@ const firstLetterLocation = (letter, matrix) => {
   return result;
 };
 
-const solveResult = [];
+let solveResult = [];
 
 const searchLetterAround = (letter, location, matrix) => {
   const cellCount = matrix.length;
@@ -123,7 +123,11 @@ const solveWord = (word, matrix) => {
   const firstLetterLocations = firstLetterLocation(firstLetter, matrix);
   for (let i = 0; i < firstLetterLocations.length; i += 1) {
     solveResult.push(firstLetterLocations[i]);
-    solveLetterAround(firstLetterLocations[i], firstLetter, word.substring(1), matrix);
+    const isSolved = solveLetterAround(firstLetterLocations[i],
+      firstLetter, word.substring(1), matrix);
+    if (!isSolved) {
+      solveResult.pop();
+    }
   }
   return result;
 };
@@ -135,7 +139,22 @@ matrix[2] = ['Y', 'E', 'U', 'T'];
 matrix[3] = ['E', 'O', 'R', 'N'];
 console.log(matrix);
 
-// console.log(firstLetterLocation('N', matrix));
+const words = ['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER'];
+const solve = (theWords, theMatrix) => {
+  const result = [];
+  for (let i = 0; i < theWords.length; i += 1) {
+    // Reset Solve Result
+    solveResult = [];
+    solveWord(theWords[i], theMatrix);
+    if (solveResult.length > 0) {
+      result.push(theWords[i]);
+    }
+  }
 
-solveWord('SUPER', matrix);
-console.log(solveResult.reduce((acc, cur) => acc + cur.letter, ''));
+  return result;
+};
+
+const solvedWords = solve(words, matrix);
+console.log(`${solvedWords.length} word(s) found : `);
+console.log(solvedWords);
+
