@@ -132,17 +132,18 @@ const solveWord = (word, matrix) => {
   return result;
 };
 
-const matrix = shake(4);
-matrix[0] = ['D', 'G', 'H', 'I'];
-matrix[1] = ['K', 'L', 'P', 'S'];
-matrix[2] = ['Y', 'E', 'U', 'T'];
-matrix[3] = ['E', 'O', 'R', 'N'];
+const matrix = shake(9);
+// matrix[0] = ['D', 'G', 'H', 'I'];
+// matrix[1] = ['K', 'L', 'P', 'S'];
+// matrix[2] = ['Y', 'E', 'U', 'T'];
+// matrix[3] = ['E', 'O', 'R', 'N'];
 console.log(matrix);
 
-const words = ['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER'];
+const data = require('./data');
+const words = data.words;//['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER'];
 const solve = (theWords, theMatrix) => {
   const result = [];
-  for (let i = 0; i < theWords.length; i += 1) {
+  for (let i = 0; i < 100; i += 1) {
     // Reset Solve Result
     solveResult = [];
     solveWord(theWords[i], theMatrix);
