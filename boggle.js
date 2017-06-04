@@ -108,7 +108,9 @@ const solveLetterAround = (initLocation, letter, word, matrix) => {
       return result;
     }
     const isSolved = solveLetterAround(lettersAround[i], word.charAt(1), word.substring(1), matrix);
-    if (!isSolved) {
+    if (isSolved) {
+      break;
+    } else {
       solveResult.pop();
       result = false;
     }
@@ -125,7 +127,9 @@ const solveWord = (word, matrix) => {
     solveResult.push(firstLetterLocations[i]);
     const isSolved = solveLetterAround(firstLetterLocations[i],
       firstLetter, word.substring(1), matrix);
-    if (!isSolved) {
+    if (isSolved) {
+      break;
+    } else {
       solveResult.pop();
     }
   }
@@ -140,10 +144,11 @@ const matrix = shake(9);
 console.log(matrix);
 
 const data = require('./data');
-const words = data.words;//['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER'];
+
+const words = data.words;// ['APPLE', 'SIT', 'TRIP', 'TURN', 'SUPER'];
 const solve = (theWords, theMatrix) => {
   const result = [];
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 200; i += 1) {
     // Reset Solve Result
     solveResult = [];
     solveWord(theWords[i], theMatrix);
